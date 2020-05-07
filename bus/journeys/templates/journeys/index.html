@@ -1,0 +1,16 @@
+{% extends "journeys/base.html" %}
+
+{% block title %}
+    BusTravels.com
+{% endblock %}
+
+{% block body %}
+    <h1>BusTravels</h1>
+    <ul>
+        {% for journey in journeys %}
+            <li>
+                <a href="{% url 'journey' journey.id %}">{{ journey }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

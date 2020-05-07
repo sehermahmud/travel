@@ -1,0 +1,37 @@
+{% extends "journeys/base.html" %}
+
+{% block title %}
+    BusTravel {{ journey.id }}
+{% endblock %}
+
+{% block body %}
+    <h1>BusTravel {{ journey.id }}</h1>
+    <ul>
+        <li>Origin: {{ journey.origin }}</li>
+        <li>Destination: {{ journey.destination }}</li>
+    </ul>
+    <h2>Passengers</h2>
+    <ul>
+        {% for passenger in passengers %}
+            <li>{{ passenger }}</li>
+        {% empty %}
+            <li>No passengers</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <h2>Add a Passenger</h2>
+    {% if non_passengers %}
+    <form action="{% url 'book' journey.id %}" method="post">
+      {% csrf_token %}
+       <select name="passenger">
+            {% for passenger in non_passengers %}
+                <option value="{{ passenger.id }}">{{ passenger }}</option>
+            {% endfor %}
+       </select>
+       <input type="submit" value="Book Bus" />
+    </form>
+    {% else %}
+        <div>No passengers to add.</div>
+    {% endif %}
+    <a href="{% url 'index' %}">Back to full listing</a>
+{% endblock %}
